@@ -1,51 +1,61 @@
 ﻿using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure.InfrastructureBases;
 public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
 {
 
-    #region Vars / Props
-
     protected readonly MyDbContext _dbContext;
+    private readonly DbSet<T> _entitiySet;
 
-    #endregion
-
-    #region Constructor(s)
     public GenericRepositoryAsync(MyDbContext dbContext)
     {
         _dbContext = dbContext;
+        _entitiySet = _dbContext.Set<T>();
     }
 
-    #endregion
+    public void Add(T entity)
+        => _dbContext.Add(entity);
 
-    #region Methods
+    public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
+        => await _dbContext.AddAsync(entity, cancellationToken);
 
-    #endregion
+    public void AddRange(IEnumerable<T> entities)
+        => _dbContext.AddRange(entities);
 
-    #region Actions
-    public async Task<T> GetByIdAsync(int id)
-    {
-        return await _dbContext.Set<T>().FindAsync(id);
-    }
+    public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        => await _dbContext.AddRangeAsync(entities, cancellationToken);
 
-    public virtual async Task<T> AddAsync(T entity)
-    {
-        await _dbContext.Set<T>().AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
-        return entity;
-    }
+    public T Get(Expression<Func<T, bool>> expression)
+        => _entitiySet.FirstOrDefault(expression);
 
-    public virtual async Task UpdateAsync(T entity)
-    {
-        _dbContext.Set<T>().Update(entity);
-        await _dbContext.SaveChangesAsync();
-    }
+    public IEnumerable<T> GetAll()
+        => _entitiySet.AsEnumerable();
 
-    public virtual async Task DeleteAsync(T entity)
-    {
-        _dbContext.Set<T>().Remove(entity);
-        await _dbContext.SaveChangesAsync();
-    }
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>> expression)
+        => _entitiySet.Where(expression).AsEnumerable();
 
-    #endregion
+    public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        => await _entitiySet.ToListAsync(cancellationToken);
+
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        => await _entitiySet.Where(expression).ToListAsync(cancellationToken);
+
+    public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        => await _entitiySet.FirstOrDefaultAsync(expression, cancellationToken);
+
+    public void Remove(T entity)
+        => _dbContext.Remove(entity);
+
+    public void RemoveRange(IEnumerable<T> entities)
+        => _dbContext.RemoveRange(entities);
+
+    public void Update(T entity)
+        => _dbContext.Update(entity);
+
+    public void UpdateRange(IEnumerable<T> entities)
+        => _dbContext.UpdateRange(entities);
+
+
 }

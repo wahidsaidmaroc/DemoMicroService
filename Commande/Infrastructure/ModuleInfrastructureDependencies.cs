@@ -1,6 +1,5 @@
-﻿using Infrastructure.InfrastructureBases;
-using Infrastructure.Interfaces;
-using Infrastructure.Repository;
+﻿
+using unOf = Infrastructure.UnitOfWork ;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -10,8 +9,8 @@ public static class ModuleInfrastructureDependencies
 {
     public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
     {
-        services.AddTransient<IProduitRepos, ProduitRepository>();
-        services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+        services.AddScoped<unOf.IUnitOfWork, unOf.UnitOfWork>();
+
         return services;
     }
 }

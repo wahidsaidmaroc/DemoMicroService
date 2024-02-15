@@ -1,6 +1,7 @@
 using Infrastructure;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +12,10 @@ builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-#region Transient
-builder.Services.AddInfrastructureDependencies();
-               // .AddServiceDependencies()
-                //.AddCoreDependencies();
 
-#endregion
+builder.Services.AddInfrastructureDependencies();
+builder.Services.AddServiceDependencies();
+
 
 
 builder.Services.AddControllers();

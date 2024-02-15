@@ -3,11 +3,12 @@ using Infrastructure.Context;
 using Infrastructure.InfrastructureBases;
 using Infrastructure.Interfaces;
 
+
 namespace Infrastructure.Repository
 {
-    public class ProduitRepository : GenericRepositoryAsync<Produit>, IProduitRepos
+    public class CommandeRepository : GenericRepositoryAsync<Commande>, ICommandeRepos
     {
-        public ProduitRepository(MyDbContext context) : base(context)
+        public CommandeRepository(MyDbContext context) : base(context)
         {
 
         }

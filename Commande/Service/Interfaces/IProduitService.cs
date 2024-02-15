@@ -4,6 +4,6 @@ namespace Service.Interfaces
 {
     public interface IProduitService
     {
-       Task AddAsync(Produit produit);
+       void AddAsync(Produit produit);
     }
 }

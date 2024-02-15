@@ -7,7 +7,6 @@ namespace Service.Implementations
     {
         public void AddAsync(Produit produit)
         {
-            
         }
     }
 }
