@@ -7,8 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Commande\Commands\" />
+    <Folder Include="Features\Produit\Commands\" />
+    <Folder Include="Features\Produit\Queries\GetDetail\" />
   </ItemGroup>
 
 </Project>

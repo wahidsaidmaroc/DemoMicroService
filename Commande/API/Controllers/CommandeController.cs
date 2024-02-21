@@ -1,70 +1,33 @@
-﻿using API.Dtos;
+﻿
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Service.Features.Commande.Queries.GetDetail;
 
 namespace API.Controllers;
 
 
+[Route("api/[controller]")]
 [ApiController]
-
-public class CommandeController : ControllerBase
+public class CommandeController : BaseController
 {
 
-    [HttpGet]
-    [Route("Intermediare")]
-   
-    public IActionResult Get()
+    private readonly IMediator _mediator;
+    public CommandeController(IMediator mediator)
     {
-        var cmd = new CommandeDtos
-        { DateCommande = DateTime.Now , Id = Guid.NewGuid(), NomClient = "Adil"};
-        if (true)
-        {
-            return Ok(cmd);
-        }
-        //try
-        //{
-        //    return NotFound();
-
-
-        //}
-        //catch (Exception)
-        //{
-
-        //    return BadRequest();
-        //}
-         
-
+        _mediator = mediator;
     }
-    //[HttpPost]
-    //public IActionResult Post()
-    //{
 
-    //    //try
-    //    //{
-    //     return NotFound();
-
-
-    //    //}
-    //    //catch (Exception)
-    //    //{
-
-    //    //    return BadRequest();
-    //    //}
-
-
-    //}
-
-
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Route("ajouter")]
-
-    public ActionResult<CommandeDtos> Ajouter([FromBody] CommandeDtos obj)
+    [HttpGet("get", Name = "GetCommande")]
+    public async Task<ActionResult<CommandeDto>> Get(int id)
     {
-
+        var obj = await _mediator.Send(new GetDetailCommandeQuery() { CommandeId = id});
+        if (obj == null)
+        {
+            return NotFound();
+        }
         return Ok(obj);
     }
 
-   
+
 
 }
