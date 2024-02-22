@@ -1,8 +1,7 @@
-﻿using Data.Entities;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Service.Implementations;
 using Service.Interfaces;
+using Service.Service;
 using System.Reflection;
 
 namespace Service;
@@ -13,6 +12,9 @@ public static class ModuleServiceDependencies
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(Assembly.GetExecutingAssembly());
+
+        //Services Injection
+        services.AddScoped<IUnitOfService, UnitOfService>();
         return services;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Data.Entities;
-using Service.Features.Commande.Queries.GetDetail;
+using Service.Dtos;
 
 namespace Service.Profiles
 {
@@ -8,7 +8,10 @@ namespace Service.Profiles
     {
         public AutoMapperProfile() 
         {
-            CreateMap<Commande, CommandeDto>();
+            //Produit Mapping
+            CreateMap<Produit, ProduitGetDTO>();
+            CreateMap<ProduitPostDTO, Produit>();
+            //CreateMap<ProduitPutDTO, Produit>();
 
         }
     }

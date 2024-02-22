@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Commande\Queries\GetDetail\CommandeDto.cs" />
+    <Compile Remove="Features\Commande\Queries\GetDetail\GetCommandeDetailQueryHandler.cs" />
+    <Compile Remove="Features\Commande\Queries\GetDetail\GetDetailCommandeQuery.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
@@ -18,8 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Commande\Commands\" />
-    <Folder Include="Features\Produit\Commands\" />
-    <Folder Include="Features\Produit\Queries\GetDetail\" />
+    <Folder Include="Features\Commande\Queries\GetDetail\" />
   </ItemGroup>
 
 </Project>

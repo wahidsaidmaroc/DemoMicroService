@@ -1,9 +1,12 @@
-﻿using Data.Entities;
+﻿using Service.Dtos;
 
-namespace Service.Interfaces
+namespace Service.Interfaces;
+
+public interface IProduitService
 {
-    public interface IProduitService
-    {
-       void AddAsync(Produit produit);
-    }
+    Task<ProduitGetDTO> FindAsync(int id);
+    Task<IEnumerable<ProduitGetDTO>> FindAllAsync();
+    Task<ProduitGetDTO> CreateAsync(ProduitPostDTO produitPostDTO);
+    Task<ProduitGetDTO> UpdateAsync(ProduitPutDTO produitPutDTO);
+    Task<bool> DeleteAsync(int id);
 }
